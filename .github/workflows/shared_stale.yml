@@ -1,9 +1,7 @@
 # Configuration for stale action workflow - https://github.com/actions/stale
 name: (Shared) Manage stale issues and PRs
 on:
-  schedule:
     # Run hourly
-    - cron: '0 * * * *'
   workflow_dispatch:
 
 env:
@@ -11,7 +9,7 @@ env:
 
 jobs:
   stale:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/stale@v9
         with:

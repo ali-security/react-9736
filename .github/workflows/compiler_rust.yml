@@ -34,13 +34,13 @@ jobs:
     strategy:
       matrix:
         target:
-          - target: ubuntu-latest
-            os: ubuntu-latest
+          - target: ubuntu-24.04
+            os: ubuntu-24.04
           # TODO: run on more platforms
-          # - target: macos-latest
-          #   os: macos-latest
-          # - target: windows-latest
-          #   os: windows-latest
+          # - target: macos-14
+          #   os: macos-14
+          # - target: windows-2022
+          #   os: windows-2022
     runs-on: ${{ matrix.target.os }}
     steps:
       - uses: actions/checkout@v4
@@ -50,7 +50,7 @@ jobs:
 
   lint:
     name: Rust Lint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions-rs/toolchain@v1
@@ -68,7 +68,7 @@ jobs:
 
   build:
     name: Rust Build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     # TODO: build on more platforms, deploy, etc
     steps:
       - uses: actions/checkout@v4

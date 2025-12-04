@@ -34,7 +34,7 @@ defaults:
 jobs:
   publish_prerelease:
     name: Publish prelease (${{ inputs.release_channel }}) ${{ inputs.commit_sha }} @${{ inputs.dist_tag }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

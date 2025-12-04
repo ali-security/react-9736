@@ -1,8 +1,6 @@
 name: (DevTools) Regression Tests
 
 on:
-  schedule:
-    - cron: 0 0 * * *
   workflow_dispatch:
     inputs:
       commit_sha:
@@ -17,7 +15,7 @@ env:
 jobs:
   download_build:
     name: Download base build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -51,7 +49,7 @@ jobs:
   build_devtools_and_process_artifacts:
     name: Build DevTools and process artifacts
     needs: download_build
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -98,7 +96,7 @@ jobs:
   run_devtools_tests_for_versions:
     name: Run DevTools tests for versions
     needs: build_devtools_and_process_artifacts
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         version:
@@ -133,7 +131,7 @@ jobs:
   run_devtools_e2e_tests_for_versions:
     name: Run DevTools e2e tests for versions
     needs: build_devtools_and_process_artifacts
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         version:

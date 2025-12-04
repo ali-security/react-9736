@@ -20,7 +20,7 @@ jobs:
   # ----- FLOW -----
   discover_flow_inline_configs:
     name: Discover flow inline configs
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       matrix: ${{ steps.set-matrix.outputs.result }}
     steps:
@@ -35,7 +35,7 @@ jobs:
   flow:
     name: Flow check ${{ matrix.flow_inline_config_shortname }}
     needs: discover_flow_inline_configs
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     continue-on-error: true
     strategy:
       matrix:
@@ -61,7 +61,7 @@ jobs:
   # ----- FIZZ -----
   check_generated_fizz_runtime:
     name: Confirm generated inline Fizz runtime is up to date
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -85,7 +85,7 @@ jobs:
   # ----- FEATURE FLAGS -----
   flags:
     name: Check flags
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -107,7 +107,7 @@ jobs:
   # ----- TESTS -----
   test:
     name: yarn test ${{ matrix.params }} (Shard ${{ matrix.shard }})
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         params:
@@ -158,7 +158,7 @@ jobs:
   # ----- BUILD -----
   build_and_lint:
     name: yarn build and lint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         # yml is dumb. update the --total arg to yarn build if you change the number of workers
@@ -239,7 +239,7 @@ jobs:
           - 2/3
           - 3/3
     continue-on-error: true
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -269,7 +269,7 @@ jobs:
   process_artifacts_combined:
     name: Process artifacts combined
     needs: build_and_lint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -314,7 +314,7 @@ jobs:
   check_error_codes:
     name: Search build artifacts for unminified errors
     needs: build_and_lint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -347,7 +347,7 @@ jobs:
   check_release_dependencies:
     name: Check release dependencies
     needs: build_and_lint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -377,7 +377,7 @@ jobs:
   RELEASE_CHANNEL_stable_yarn_test_dom_fixtures:
     name: Check fixtures DOM (stable)
     needs: build_and_lint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -416,7 +416,7 @@ jobs:
   run_fixtures_flight_tests:
     name: Run fixtures Flight tests
     needs: build_and_lint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -477,7 +477,7 @@ jobs:
   build_devtools_and_process_artifacts:
     name: Build DevTools and process artifacts
     needs: build_and_lint
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -525,7 +525,7 @@ jobs:
   run_devtools_e2e_tests:
     name: Run DevTools e2e tests
     needs: build_devtools_and_process_artifacts
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -559,7 +559,7 @@ jobs:
   download_base_build_for_sizebot:
     if: ${{ github.event_name == 'pull_request' && github.ref_name != 'main' }}
     name: Download base build for sizebot
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -600,7 +600,7 @@ jobs:
   sizebot:
     name: Run sizebot
     needs: [build_and_lint, download_base_build_for_sizebot]
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
